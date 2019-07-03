@@ -27,6 +27,7 @@
 #===============================================================================
 
 require 'commander'
+require 'cloudcli/config'
 require 'cloudcli/commands/power'
 
 module CloudCLI
@@ -38,7 +39,7 @@ module CloudCLI
     extend Commander::UI::AskForClass
     extend Commander::Delegates
 
-    program :name, 'TODO: Set Me In A Config'
+    program :name, Config.appname
     program :version, CloudCLI::VERSION
     program :description, 'Cloud orchestration tool'
     program :help_paging, false

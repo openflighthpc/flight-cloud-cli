@@ -40,7 +40,7 @@ module CloudCLI
       end
 
       def run
-        pp API.new('192.168.101.101', 80)
+        pp API.new(Config.ip, Config.port)
               .public_send(api_command, node)
               .body
               .to_h
