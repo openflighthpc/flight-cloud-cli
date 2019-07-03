@@ -29,8 +29,38 @@
 module CloudCLI
   module Commands
     class Power
+      def initialize
+        require 'cloudcli/api'
+      end
+
       def run!(node, command)
-        puts "Running: #{node}: #{command}"
+        @node = node
+        @command = command
+        run
+      end
+
+      def run
+        pp API.new('192.168.101.101', 80)
+              .public_send(api_command, node)
+              .body
+              .to_h
+      end
+
+      private
+
+      attr_reader :node, :command
+
+      def api_command
+        case command
+        when 'status'
+          :power_status
+        when 'on'
+          :power_on
+        when 'off'
+          :power_off
+        else
+          raise StandardError, "Unrecongnised command: #{command}"
+        end
       end
     end
   end

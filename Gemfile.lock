@@ -6,8 +6,11 @@ GEM
       paint (~> 2.1.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.13.1)
+      faraday (>= 0.7.4, < 1.0)
     flight_config (0.2.0)
       tty-config
+    hashie (3.6.0)
     highline (1.7.10)
     multipart-post (2.1.1)
     paint (2.1.0)
@@ -19,7 +22,9 @@ PLATFORMS
 DEPENDENCIES
   commander-openflighthpc
   faraday
+  faraday_middleware
   flight_config
+  hashie
 
 BUNDLED WITH
    1.17.3

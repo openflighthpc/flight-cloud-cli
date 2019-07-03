@@ -26,12 +26,37 @@
 # https://github.com/openflighthpc/flight-cloud-cli
 #===============================================================================
 
-source "https://rubygems.org"
+require 'faraday'
+require 'hashie'
+require 'faraday_middleware'
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+module CloudCLI
+  API = Struct.new(:ip, :port) do
+    def power_status(node)
+      connection.get("/cloud/power/#{node}")
+    end
 
-gem 'commander-openflighthpc'
-gem 'faraday'
-gem 'faraday_middleware'
-gem 'hashie'
-gem 'flight_config'
+    def power_on(node)
+      connection.get("/cloud/power/#{node}/on")
+    end
+
+    def power_off(node)
+      connection.get("/cloud/power/#{node}/off")
+    end
+
+    private
+
+    def url
+      "http://#{ip}:#{port}"
+    end
+
+    def connection
+      @connection ||= Faraday::Connection.new(url) do |con|
+        con.request :url_encoded
+        con.use FaradayMiddleware::Mashify
+        con.response :json, content_type: /\bjson$/
+        con.adapter Faraday.default_adapter
+      end
+    end
+  end
+end
