@@ -36,19 +36,20 @@ module CloudCLI
       def run!(node, command, group: false)
         @node = node
         @command = command
+        @group = group
         run
       end
 
       def run
         pp API.new(Config.ip, Config.port)
-              .public_send(api_command, node)
+              .public_send(api_command, node, group: group)
               .body
               .to_h
       end
 
       private
 
-      attr_reader :node, :command
+      attr_reader :node, :command, :group
 
       def api_command
         case command
