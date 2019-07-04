@@ -82,7 +82,7 @@ module CloudCLI
     end
 
     command('power') do |c|
-      cli_syntax(c, 'NODE COMMAND')
+      cli_syntax(c, 'NODE_IDENTIFIER COMMAND')
       c.summary = 'Check and manage the power state of nodes'
       c.description = <<~DESC
         Tool for checking and managing the power state of nodes in a cluster.
@@ -93,6 +93,9 @@ module CloudCLI
           status  - Check the power status of the node
           reset   - Turn a node off and back on again
       DESC
+      c.option '-g', '--group', <<~OPT.chomp
+        Run the command over a group of nodes given by NODE_IDENTIFIER
+      OPT
       action(c, Commands::Power)
     end
   end

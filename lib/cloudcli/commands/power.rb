@@ -33,7 +33,7 @@ module CloudCLI
         require 'cloudcli/api'
       end
 
-      def run!(node, command)
+      def run!(node, command, group: false)
         @node = node
         @command = command
         run
