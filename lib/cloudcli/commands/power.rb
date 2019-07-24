@@ -60,7 +60,7 @@ module CloudCLI
         when 'off'
           :power_off
         else
-          raise StandardError, "Unrecongnised command: #{command}"
+          raise StandardError, "Unrecognised command: #{command}"
         end
       end
     end
