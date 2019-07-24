@@ -46,7 +46,8 @@ module CloudCLI
               .body
               .to_h
 
-        result['nodes'].each do |node, status|
+        nodes = result['nodes'].merge(result['errors'])
+        nodes.each do |node, status|
           puts "#{node}: #{status}"
         end
       end
