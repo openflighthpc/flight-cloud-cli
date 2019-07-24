@@ -47,7 +47,7 @@ module CloudCLI
               .to_h
 
         result['nodes'].sort.each do |node, status|
-          command_output(node, status)
+          puts "#{node}: #{status}"
         end
       end
 
@@ -65,21 +65,6 @@ module CloudCLI
           :power_off
         else
           raise StandardError, "Unrecognised command: #{command}"
-        end
-      end
-
-      def command_output(node, status)
-        case status
-        when 'running'
-          puts "#{node}: on"
-        when 'stopped'
-          puts "#{node}: off"
-        when 'pending'
-          puts "#{node}: Powering on"
-        when 'stopping'
-          puts "#{node}: Powering off"
-        else
-          raise StandardError, "Unrecognised status: #{status}"
         end
       end
     end
