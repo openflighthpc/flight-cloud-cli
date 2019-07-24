@@ -46,7 +46,9 @@ module CloudCLI
               .body
               .to_h
 
-        result['nodes'].sort.each do |node, status|
+        nodes = result['nodes'].merge(result['errors'])
+        nodes.sort.each do |node, status|
+          status = 'undeployed' if status.include? " "
           puts "#{node}: #{status}"
         end
       end
