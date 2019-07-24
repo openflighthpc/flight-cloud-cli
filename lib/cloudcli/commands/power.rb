@@ -41,10 +41,14 @@ module CloudCLI
       end
 
       def run
-        pp API.new(Config.ip, Config.port)
+        result = API.new(Config.ip, Config.port)
               .public_send(api_command, node, group: group)
               .body
               .to_h
+
+        result['nodes'].each do |node, status|
+          command_output(node, status)
+        end
       end
 
       private
@@ -59,6 +63,21 @@ module CloudCLI
           :power_on
         when 'off'
           :power_off
+        else
+          raise StandardError, "Unrecognised command: #{command}"
+        end
+      end
+
+      def command_output(node, status)
+        case status
+        when 'stopping'
+          puts "#{node}: Powering off"
+        when 'stopped'
+          puts "#{node}: off"
+        when 'pending'
+          puts "#{node}: Powering on"
+        when 'running'
+          puts "#{node}: on"
         else
           raise StandardError, "Unrecognised command: #{command}"
         end
