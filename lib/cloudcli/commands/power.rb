@@ -46,7 +46,7 @@ module CloudCLI
               .body
               .to_h
 
-        result['nodes'].each do |node, status|
+        result['nodes'].sort.each do |node, status|
           command_output(node, status)
         end
       end
