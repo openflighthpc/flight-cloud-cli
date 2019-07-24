@@ -70,14 +70,14 @@ module CloudCLI
 
       def command_output(node, status)
         case status
-        when 'stopping'
-          puts "#{node}: Powering off"
+        when 'running'
+          puts "#{node}: on"
         when 'stopped'
           puts "#{node}: off"
         when 'pending'
           puts "#{node}: Powering on"
-        when 'running'
-          puts "#{node}: on"
+        when 'stopping'
+          puts "#{node}: Powering off"
         else
           raise StandardError, "Unrecognised command: #{command}"
         end
