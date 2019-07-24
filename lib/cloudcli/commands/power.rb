@@ -79,7 +79,7 @@ module CloudCLI
         when 'stopping'
           puts "#{node}: Powering off"
         else
-          raise StandardError, "Unrecognised command: #{command}"
+          raise StandardError, "Unrecognised status: #{status}"
         end
       end
     end
