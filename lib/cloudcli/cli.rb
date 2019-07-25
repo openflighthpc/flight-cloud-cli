@@ -29,6 +29,7 @@
 require 'commander'
 require 'cloudcli/config'
 require 'cloudcli/commands/power'
+require 'cloudcli/commands/list'
 
 module CloudCLI
   # TODO: Move me to a new file
@@ -97,6 +98,13 @@ module CloudCLI
         Run the command over a group of nodes given by NODE_IDENTIFIER
       OPT
       action(c, Commands::Power)
+    end
+
+    command('list') do |c|
+      cli_syntax(c)
+      c.summary = 'Return a list of nodes and the domain'
+      c.option '-g', '--group', 'Filter the list by group'
+      action(c, Commands::List)
     end
   end
 end
