@@ -51,11 +51,15 @@ module CloudCLI
 
         unless deployments.empty?
           deployments.each do |deployment|
-            puts "\nDeployment: '#{deployment.first}'"
+            name = deployment.first
+            groups = deployment.last[:groups]
+            status = deployment.last[:status]
+
+            puts "\nDeployment: '#{name}'"
             puts "--------------------------------------------------------"
-            puts "Status: #{deployment.last[:status]}"
-            unless deployment.last[:groups]&.nil? || deployment.last[:groups]&.empty?
-              puts "Groups: #{deployment.last[:groups]}"
+            puts "Status: #{status}"
+            unless groups&.nil? || groups&.empty?
+              puts "Groups: #{groups}"
             end
           end
         else
