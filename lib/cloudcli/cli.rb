@@ -33,7 +33,7 @@ require 'cloudcli/commands/list'
 
 module CloudCLI
   # TODO: Move me to a new file
-  VERSION = '0.0.0'
+  VERSION = '0.0.1'
 
   class CLI
     extend Commander::UI
