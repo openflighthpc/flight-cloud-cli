@@ -26,40 +26,45 @@
 # https://github.com/openflighthpc/flight-cloud-cli
 #===============================================================================
 
-require 'faraday'
-require 'hashie'
-require 'faraday_middleware'
-
 module CloudCLI
-  API = Struct.new(:ip, :port) do
-    def power_status(node, group: false)
-      connection.get("/power/#{node}", group: group)
-    end
+  module Commands
+    class List
+      attr_reader :all, :group
 
-    def power_on(node, group: false)
-      connection.get("/power/#{node}/on", group: group)
-    end
+      def initialize
+        require 'cloudcli/api'
+      end
 
-    def power_off(node, group: false)
-      connection.get("/power/#{node}/off", group: group)
-    end
+      def run!(all: false, group: false)
+        @all = all
+        @group = group
+        run
+      end
 
-    def list
-      connection.get("/list")
-    end
+      def run
+        result = API.new(Config.ip, Config.port)
+              .public_send('list')
+              .body
 
-    private
+        deployments = result[:running]
+        deployments = deployments.merge(result[:offline]) if all
 
-    def url
-      "http://#{ip}:#{port}"
-    end
+        unless deployments.empty?
+          deployments.each do |deployment|
+            name = deployment.first
+            groups = deployment.last[:groups]
+            status = deployment.last[:status]
 
-    def connection
-      @connection ||= Faraday::Connection.new(url) do |con|
-        con.request :url_encoded
-        con.use FaradayMiddleware::Mashify
-        con.response :json, content_type: /\bjson$/
-        con.adapter Faraday.default_adapter
+            puts "\nDeployment: '#{name}'"
+            puts "--------------------------------------------------------"
+            puts "Status: #{status}"
+            unless groups&.nil? || groups&.empty?
+              puts "Groups: #{groups}"
+            end
+          end
+        else
+          puts "No running deployments. Use --all to view all deployments"
+        end
       end
     end
   end
