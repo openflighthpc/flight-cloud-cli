@@ -29,16 +29,38 @@
 module CloudCLI
   module Commands
     class List
+      attr_reader :all, :group
+
       def initialize
         require 'cloudcli/api'
       end
 
-      def run!
-
+      def run!(all: false, group: false)
+        @all = all
+        @group = group
+        run
       end
 
       def run
+        result = API.new(Config.ip, Config.port)
+              .public_send('list')
+              .body
 
+        deployments = result[:running]
+        deployments = deployments.merge(result[:offline]) if all
+
+        unless deployments.empty?
+          deployments.each do |deployment|
+            puts "\nDeployment: '#{deployment.first}'"
+            puts "--------------------------------------------------------"
+            puts "Status: #{deployment.last[:status]}"
+            unless deployment.last[:groups]&.nil? || deployment.last[:groups]&.empty?
+              puts "Groups: #{deployment.last[:groups]}"
+            end
+          end
+        else
+          puts "No running deployments. Use --all to view all deployments"
+        end
       end
     end
   end
