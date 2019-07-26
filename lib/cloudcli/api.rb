@@ -44,6 +44,10 @@ module CloudCLI
       connection.get("/power/#{node}/off", group: group)
     end
 
+    def list
+      connection.get("/list")
+    end
+
     private
 
     def url
