@@ -50,16 +50,12 @@ module CloudCLI
         deployments = deployments.merge(result[:offline]) if all
 
         unless deployments.empty?
-          deployments.each do |deployment|
-            name = deployment.first
-            groups = deployment.last[:groups]
-            status = deployment.last[:status]
-
-            puts "\nDeployment: '#{name}'"
+          deployments.each do |deployment, attributes|
+            puts "\nDeployment: '#{deployment}'"
             puts "--------------------------------------------------------"
-            puts "Status: #{status}"
-            unless groups&.nil? || groups&.empty?
-              puts "Groups: #{groups}"
+            puts "Status: #{attributes[:status]}"
+            unless attributes[:groups].to_s.empty?
+              puts "Groups: #{attributes[:groups]}"
             end
           end
         else
