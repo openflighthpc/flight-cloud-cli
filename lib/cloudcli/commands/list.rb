@@ -56,9 +56,7 @@ module CloudCLI
             puts "\nDeployment: '#{deployment}'"
             puts "--------------------------------------------------------"
             puts "Status: #{attributes[:status]}"
-            unless groups.to_s.empty?
-              puts "Groups: #{groups}"
-            end
+            puts "Groups: #{groups}" unless groups.to_s.empty?
           end
         else
           puts "No running deployments. Use --all to view all deployments"
