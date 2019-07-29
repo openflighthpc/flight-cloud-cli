@@ -60,6 +60,8 @@ Turn on a node
 bin/cloud power NODENAME on
 ```
 
+Note: Use the `-g` flag to treat NODENAME as a group name to perform power commands on multiple nodes at once.
+
 # Contributing
 
 Fork the project. Make your feature addition or bug fix. Send a pull
