@@ -35,7 +35,7 @@ module CloudCLI
         require 'cloudcli/api'
       end
 
-      def run!(all: false, group: false)
+      def run!(all: false, group: nil)
         @all = all
         @group = group
         run
