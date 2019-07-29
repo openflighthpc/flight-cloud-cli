@@ -51,11 +51,13 @@ module CloudCLI
 
         unless deployments.empty?
           deployments.each do |deployment, attributes|
+            groups = attributes[:groups]
+
             puts "\nDeployment: '#{deployment}'"
             puts "--------------------------------------------------------"
             puts "Status: #{attributes[:status]}"
-            unless attributes[:groups].to_s.empty?
-              puts "Groups: #{attributes[:groups]}"
+            unless groups.to_s.empty?
+              puts "Groups: #{groups}"
             end
           end
         else
