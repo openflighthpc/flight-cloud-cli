@@ -107,5 +107,11 @@ module CloudCLI
       c.option '-g GROUP', '--group GROUP', 'Filter the list by group'
       action(c, Commands::List)
     end
+
+    command('list-groups') do |c|
+      cli_syntax(c)
+      c.description = 'List all groups within the cluster'
+      action(c, Commands::List, method: :list_groups)
+    end
   end
 end
