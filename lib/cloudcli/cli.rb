@@ -104,7 +104,7 @@ module CloudCLI
       cli_syntax(c)
       c.summary = 'Return a list of nodes and the domain'
       c.option '-a', '--all', 'List all nodes and domains'
-      c.option '-g', '--group', 'Filter the list by group'
+      c.option '-g GROUP', '--group GROUP', 'Filter the list by group'
       action(c, Commands::List)
     end
   end

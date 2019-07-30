@@ -35,7 +35,7 @@ module CloudCLI
         require 'cloudcli/api'
       end
 
-      def run!(all: false, group: false)
+      def run!(all: false, group: nil)
         @all = all
         @group = group
         run
@@ -43,24 +43,20 @@ module CloudCLI
 
       def run
         result = API.new(Config.ip, Config.port)
-              .public_send('list')
+              .public_send('list', group)
               .body
 
         deployments = result[:running]
         deployments = deployments.merge(result[:offline]) if all
 
         unless deployments.empty?
-          deployments.each do |deployment|
-            name = deployment.first
-            groups = deployment.last[:groups]
-            status = deployment.last[:status]
+          deployments.each do |deployment, attributes|
+            groups = attributes[:groups]
 
-            puts "\nDeployment: '#{name}'"
+            puts "\nDeployment: '#{deployment}'"
             puts "--------------------------------------------------------"
-            puts "Status: #{status}"
-            unless groups&.nil? || groups&.empty?
-              puts "Groups: #{groups}"
-            end
+            puts "Status: #{attributes[:status]}"
+            puts "Groups: #{groups}" unless groups.to_s.empty?
           end
         else
           puts "No running deployments. Use --all to view all deployments"
