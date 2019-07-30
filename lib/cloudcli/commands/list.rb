@@ -62,6 +62,12 @@ module CloudCLI
           puts "No running deployments. Use --all to view all deployments"
         end
       end
+
+      def list_groups
+        puts API.new(Config.ip, Config.port)
+                .public_send('list_groups')
+                .body
+      end
     end
   end
 end
