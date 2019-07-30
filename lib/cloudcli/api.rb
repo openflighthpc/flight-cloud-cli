@@ -48,6 +48,10 @@ module CloudCLI
       connection.get("/list", group: group)
     end
 
+    def list_groups
+      connection.get("/list/groups")
+    end
+
     private
 
     def url
