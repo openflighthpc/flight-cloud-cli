@@ -43,8 +43,8 @@ module CloudCLI
 
       def run
         result = API.new(Config.ip, Config.port)
-              .public_send('list', group)
-              .body
+                    .public_send('list', group)
+                    .body
 
         deployments = result[:running]
         deployments = deployments.merge(result[:offline]) if all
@@ -61,6 +61,12 @@ module CloudCLI
         else
           puts "No running deployments. Use --all to view all deployments"
         end
+      end
+
+      def list_groups
+        puts API.new(Config.ip, Config.port)
+                .public_send('list_groups')
+                .body
       end
     end
   end
