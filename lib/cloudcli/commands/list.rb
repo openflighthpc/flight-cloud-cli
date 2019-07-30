@@ -43,8 +43,8 @@ module CloudCLI
 
       def run
         result = API.new(Config.ip, Config.port)
-              .public_send('list', group)
-              .body
+                    .public_send('list', group)
+                    .body
 
         deployments = result[:running]
         deployments = deployments.merge(result[:offline]) if all
