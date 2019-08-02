@@ -53,7 +53,7 @@ module CloudCLI
     end
 
     def modify_instance_type(node, type)
-      connection.get("/modify/instance-type", node, instance_type: type)
+      connection.get("/modify/#{node}/instance-type", instance_type: type)
     end
 
     private
