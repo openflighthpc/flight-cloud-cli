@@ -30,6 +30,7 @@ require 'commander'
 require 'cloudcli/config'
 require 'cloudcli/commands/power'
 require 'cloudcli/commands/list'
+require 'cloudcli/commands/modify'
 
 module CloudCLI
   # TODO: Move me to a new file
@@ -112,6 +113,12 @@ module CloudCLI
       cli_syntax(c)
       c.description = 'List all groups within the cluster'
       action(c, Commands::List, method: :list_groups)
+    end
+
+    command('modify-type') do |c|
+      cli_syntax(c, 'NODE_IDENTIFIER INSTANCE_TYPE')
+      c.description = 'Modify the instance type of a node'
+      action(c, Commands::Modify)
     end
   end
 end
