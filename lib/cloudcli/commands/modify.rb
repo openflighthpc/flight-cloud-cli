@@ -42,6 +42,11 @@ module CloudCLI
       end
 
       def run
+        puts "Resizing instance for #{node} to #{instance_type}"
+
+        API.new(Config.ip, Config.port)
+          .public_send(:modify_instance_type, node, instance_type)
+          .body
       end
     end
   end
