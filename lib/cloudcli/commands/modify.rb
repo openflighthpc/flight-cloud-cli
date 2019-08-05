@@ -46,7 +46,6 @@ module CloudCLI
 
         API.new(Config.ip, Config.port)
           .public_send(:modify_instance_type, node, instance_type)
-          .body
       end
     end
   end
