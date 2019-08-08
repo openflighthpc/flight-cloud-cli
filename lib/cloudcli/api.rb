@@ -52,10 +52,6 @@ module CloudCLI
       connection.get("/list/groups")
     end
 
-    def modify_instance_type(node, type)
-      connection.get("/modify/#{node}/instance-type", instance_type: type)
-    end
-
     private
 
     def url
