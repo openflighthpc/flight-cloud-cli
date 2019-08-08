@@ -30,7 +30,6 @@ require 'commander'
 require 'cloudcli/config'
 require 'cloudcli/commands/power'
 require 'cloudcli/commands/list'
-require 'cloudcli/commands/modify'
 
 module CloudCLI
   # TODO: Move me to a new file
