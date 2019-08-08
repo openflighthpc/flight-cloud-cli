@@ -59,7 +59,7 @@ module CloudCLI
     end
 
     def connection
-      @connection ||= Faraday::Connection.new(url) do |con|
+      @connection ||= Faraday::Connection.new(url, request: { timeout: 120 }) do |con|
         con.request :url_encoded
         con.use FaradayMiddleware::Mashify
         con.response :json, content_type: /\bjson$/
