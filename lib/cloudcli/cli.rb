@@ -117,11 +117,5 @@ module CloudCLI
       c.description = 'List all groups within the cluster'
       action(c, Commands::List, method: :list_groups)
     end
-
-    command('modify-type') do |c|
-      cli_syntax(c, 'NODE_IDENTIFIER INSTANCE_TYPE')
-      c.description = 'Modify the instance type of a node'
-      action(c, Commands::Modify)
-    end
   end
 end
