@@ -32,15 +32,15 @@ require 'faraday_middleware'
 
 module CloudCLI
   API = Struct.new(:ip, :port) do
-    def power_status(node, group: false)
+    def power_status(node, group: false, instance: nil)
       connection.get("/power/#{node}", group: group)
     end
 
-    def power_on(node, group: false)
-      connection.get("/power/#{node}/on", group: group)
+    def power_on(node, group: false, instance: nil)
+      connection.get("/power/#{node}/on", group: group, instance: instance)
     end
 
-    def power_off(node, group: false)
+    def power_off(node, group: false, instance: nil)
       connection.get("/power/#{node}/off", group: group)
     end
 
