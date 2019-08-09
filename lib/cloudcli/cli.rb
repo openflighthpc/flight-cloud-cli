@@ -97,6 +97,9 @@ module CloudCLI
       c.option '-g', '--group', <<~OPT.chomp
         Run the command over a group of nodes given by NODE_IDENTIFIER
       OPT
+      c.option '-i TYPE', '--instance TYPE', <<~OPT.chomp
+        Change the instance type before powering the instance on
+      OPT
       action(c, Commands::Power)
     end
 

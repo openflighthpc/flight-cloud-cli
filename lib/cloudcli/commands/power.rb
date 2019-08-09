@@ -33,16 +33,17 @@ module CloudCLI
         require 'cloudcli/api'
       end
 
-      def run!(node, command, group: false)
+      def run!(node, command, group: false, instance: nil)
         @node = node
         @command = command
         @group = group
+        @instance_type = instance
         run
       end
 
       def run
         result = API.new(Config.ip, Config.port)
-              .public_send(api_command, node, group: group)
+              .public_send(api_command, node, group: group, instance: instance_type)
               .body
               .to_h
 
@@ -54,7 +55,7 @@ module CloudCLI
 
       private
 
-      attr_reader :node, :command, :group
+      attr_reader :node, :command, :group, :instance_type
 
       def api_command
         case command
