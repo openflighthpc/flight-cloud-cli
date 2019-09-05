@@ -42,10 +42,10 @@ module CloudCLI
       end
 
       def run
-        result = API.new(Config.ip, Config.port)
-              .public_send(api_command, node, group: group, instance: instance_type)
-              .body
-              .to_h
+        result = API.from_config
+                    .public_send(api_command, node, group: group, instance: instance_type)
+                    .body
+                    .to_h
 
         nodes = result['nodes'].merge(result['errors'])
         nodes.each do |node, status|

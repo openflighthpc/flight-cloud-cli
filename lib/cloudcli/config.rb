@@ -68,6 +68,12 @@ module CloudCLI
       __data__.fetch(:port) { 443 }
     end
 
+    def ca_path
+      __data__.fetch(:ca_path) do
+        raise StandardError, "The 'ca_path' has not been set within the config"
+      end
+    end
+
     def appname
       'cloud'
     end

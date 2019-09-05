@@ -12,6 +12,20 @@
 ip:
 
 # =============================================================================
+# CA_PATH - REQUIRED
+# Setup the certificate authority used by HTTPS/SSL. The location of the SSL
+# certificates depends on the system configuration. See the following link for
+# further details or contact your system administrator
+# https://github.com/lostisland/faraday/wiki/Setting-up-SSL-certificates
+#
+# NOTE: The SSL verification can be turned off by setting the value to 'false'
+# (without quotes). This is not recommended as it opens up multiple types of
+# cryptographic attacks. However this can sometimes be useful when using a self
+# signed certificate.
+# =============================================================================
+ca_path:
+
+# =============================================================================
 # PORT
 # Set port the app will communicate with, default 443
 # =============================================================================
