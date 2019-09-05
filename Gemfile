@@ -35,3 +35,7 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'hashie'
 gem 'flight_config'
+
+group :development do
+  gem 'pry'
+end

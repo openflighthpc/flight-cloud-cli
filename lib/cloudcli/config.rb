@@ -65,7 +65,7 @@ module CloudCLI
     end
 
     def port
-      __data__.fetch(:port) { 80 }
+      __data__.fetch(:port) { 443 }
     end
 
     def appname

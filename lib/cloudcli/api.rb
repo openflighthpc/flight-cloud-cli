@@ -55,7 +55,7 @@ module CloudCLI
     private
 
     def url
-      "http://#{ip}:#{port}"
+      "https://#{ip}:#{port}"
     end
 
     def connection
@@ -63,6 +63,7 @@ module CloudCLI
         con.request :url_encoded
         con.use FaradayMiddleware::Mashify
         con.response :json, content_type: /\bjson$/
+        con.ssl.verify = false
         con.adapter Faraday.default_adapter
       end
     end
