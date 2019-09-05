@@ -42,7 +42,7 @@ module CloudCLI
       end
 
       def run
-        result = API.new(Config.ip, Config.port)
+        result = API.from_config
                     .public_send('list', group)
                     .body
 
@@ -64,7 +64,7 @@ module CloudCLI
       end
 
       def list_groups
-        puts API.new(Config.ip, Config.port)
+        puts API.from_config
                 .public_send('list_groups')
                 .body
       end

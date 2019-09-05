@@ -31,7 +31,11 @@ require 'hashie'
 require 'faraday_middleware'
 
 module CloudCLI
-  API = Struct.new(:ip, :port) do
+  API = Struct.new(:ip, :port, :ca_path, :token) do
+    def self.from_config
+      new(Config.ip, Config.port, Config.ca_path, Config.token)
+    end
+
     def power_status(node, group: false, instance: nil)
       connection.get("/power/#{node}", group: group)
     end
@@ -55,14 +59,26 @@ module CloudCLI
     private
 
     def url
-      "http://#{ip}:#{port}"
+      "https://#{ip}:#{port}"
     end
 
     def connection
       @connection ||= Faraday::Connection.new(url, request: { timeout: 120 }) do |con|
         con.request :url_encoded
+        con.use Faraday::Response::RaiseError
         con.use FaradayMiddleware::Mashify
         con.response :json, content_type: /\bjson$/
+        con.authorization :Bearer, token
+        # Faraday makes a distinction between ca directories and files depending on
+        # platform
+        # https://github.com/lostisland/faraday/wiki/Setting-up-SSL-certificates
+        if File.directory?(ca_path.to_s)
+          con.ssl.ca_path = ca_path
+        elsif ca_path
+          con.ssl.ca_file = ca_path
+        else
+          con.ssl.verify = false
+        end
         con.adapter Faraday.default_adapter
       end
     end

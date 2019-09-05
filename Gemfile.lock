@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    coderay (1.1.2)
     commander-openflighthpc (1.1.0)
       highline (~> 1.7.2)
       paint (~> 2.1.0)
@@ -12,8 +13,12 @@ GEM
       tty-config
     hashie (3.6.0)
     highline (1.7.10)
+    method_source (0.9.2)
     multipart-post (2.1.1)
     paint (2.1.0)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     tty-config (0.3.2)
 
 PLATFORMS
@@ -25,6 +30,7 @@ DEPENDENCIES
   faraday_middleware
   flight_config
   hashie
+  pry
 
 BUNDLED WITH
    1.17.3
