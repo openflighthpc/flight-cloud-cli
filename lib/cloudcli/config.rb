@@ -74,6 +74,12 @@ module CloudCLI
       end
     end
 
+    def token
+      __data__.fetch(:token) do
+        raise StandardError, "The authorization 'token' has not been set within the config"
+      end
+    end
+
     def appname
       'cloud'
     end

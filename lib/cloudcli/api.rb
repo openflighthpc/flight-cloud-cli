@@ -31,9 +31,9 @@ require 'hashie'
 require 'faraday_middleware'
 
 module CloudCLI
-  API = Struct.new(:ip, :port, :ca_path) do
+  API = Struct.new(:ip, :port, :ca_path, :token) do
     def self.from_config
-      new(Config.ip, Config.port, Config.ca_path)
+      new(Config.ip, Config.port, Config.ca_path, Config.token)
     end
 
     def power_status(node, group: false, instance: nil)
@@ -67,6 +67,7 @@ module CloudCLI
         con.request :url_encoded
         con.use FaradayMiddleware::Mashify
         con.response :json, content_type: /\bjson$/
+        con.authorization :Bearer, token
         # Faraday makes a distinction between ca directories and files depending on
         # platform
         # https://github.com/lostisland/faraday/wiki/Setting-up-SSL-certificates
